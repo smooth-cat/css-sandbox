@@ -1,0 +1,11 @@
+a[aaa] div[bbb], acc > cca {
+  justify-content: center;
+}
+
+a::after {
+  color: red;
+}
+
+::before {
+  width: 10px;
+}

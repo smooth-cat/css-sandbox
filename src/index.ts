@@ -1,1 +1,3 @@
-console.log('微前端样式隔离');
+export * from './prefix-selector';
+export * from './cli'
+export * from './plugin'

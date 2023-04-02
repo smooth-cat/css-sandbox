@@ -16,15 +16,10 @@ exec('pnpm build');
 pkg.version = newVal;
 fs.writeFileSync(path.resolve(process.cwd(), './package.json'), JSON.stringify(pkg, undefined, 2)+'\n');
 
-
-changeFileSync(cwd('./.npmrc'), () => `registry = "https://registry.npmjs.com"`);
-
 try {
   // 发布
-  exec('npm publish  --access=public');
+  exec('npm publish  --access=public --registry="https://registry.npmjs.com"');
   console.log(`${newVal} 发布成功🤡~`)
-} catch() {
+} catch(e) {
   console.log(`${newVal} 发布失败😭~`);
 };
-
-changeFileSync(cwd('./.npmrc'), () => `registry = "https://registry.npmmirror.com"`);
