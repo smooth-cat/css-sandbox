@@ -1,4 +1,4 @@
-# smooth-cat
+# css-sandbox
 一个纯净的基于 rollup 打包的仓库模板<br/>
 使用：
 

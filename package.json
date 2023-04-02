@@ -1,9 +1,9 @@
 {
-  "name": "smooth-cat",
+  "name": "css-sandbox",
   "version": "0.0.1",
-  "main": "dist/smooth-cat.cjs.js",
-  "module": "dist/smooth-cat.esm.js",
-  "browser": "dist/smooth-cat.umd.js",
+  "main": "dist/css-sandbox.cjs.js",
+  "module": "dist/css-sandbox.esm.js",
+  "browser": "dist/css-sandbox.umd.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.1",
@@ -26,8 +26,16 @@
   ],
   "license": "MIT",
   "keyWords": [
-    "smooth",
-    "cat"
+    "css",
+    "sandbox"
   ],
-  "author": "smooth-cat"
+  "author": "smooth-cat",
+  "repository": {
+    "type": "git",
+    "url": "git+git@github.com:smooth-cat/css-sandbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smooth-cat/css-sandbox/issues"
+  },
+  "homepage": "https://github.com/smooth-cat/css-sandbox#readme"
 }

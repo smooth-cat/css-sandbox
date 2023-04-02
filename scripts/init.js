@@ -5,7 +5,9 @@ let params = process.argv.slice(2);
 
 if (!params.length) {
   const res = readlineSync
-    .question('请输入 <name|包名> ## <author|作者> ## <description|描述>\n\n例如： my-prj ## smooth-cat ## a awsome project\n\n')
+    .question(
+      '请输入 <name|包名> ## <author|作者> ## <description|描述>\n\n例如： my-prj ## smooth-cat ## a awsome project\n\n'
+    )
     .split('##')
     .map(it => it.trim());
   if (!res[0]) {
@@ -27,14 +29,24 @@ changeJsonSync(cwd('./package.json'), data => {
     browser: `dist/${name}.umd.js`
   };
 
+  const repoReg = /git\@(.*):([^\n]+).git/;
   let repo = '';
+  let domain = '';
+  let path = '';
   try {
-    repo = exec('git remote -v') || '';
+    const res = exec('git remote -v') || '';
+    const match = res.match(repoReg);
+
+    if (match) {
+      repo = match[0] || '';
+      domain = match[1] || '';
+      path = match[2] || '';
+    }
   } catch (error) {
     console.log('repo not exist');
   }
 
-  const repoHome = repo.replace(/git@([.\.]*):([\s\S]).git/, (_, domain, path) => `https://${domain}/${path}`);
+  const repoHome = `https://${domain}/${path}`;
 
   const repoProps = repo
     ? {
@@ -43,9 +55,9 @@ changeJsonSync(cwd('./package.json'), data => {
           url: `git+${repo}`
         },
         bugs: {
-          url: `${repoIndex}/issues`
+          url: `${repoHome}/issues`
         },
-        homepage: `${repoIndex}#readme`
+        homepage: `${repoHome}#readme`
       }
     : {};
 
@@ -53,6 +65,7 @@ changeJsonSync(cwd('./package.json'), data => {
     ...data,
     version,
     ...entryProps,
+    ...repoProps,
     keyWords,
     name,
     author,

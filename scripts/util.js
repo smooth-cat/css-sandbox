@@ -4,7 +4,11 @@ const { execSync, exec } = require('child_process');
 const { resolve } = require('path');
 
 const asyncExec = promisify(exec);
-const exec1 = (v) => console.log(execSync(v, {"encoding": 'utf-8', cwd: process.cwd() }));
+const exec1 = (v) => {
+  const res = execSync(v, {"encoding": 'utf-8', cwd: process.cwd() });
+  console.log(res);
+  return res;
+};
 
 const CONF = { encoding: 'utf-8' };
 
