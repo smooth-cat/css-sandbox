@@ -1,6 +1,6 @@
 {
   "name": "css-sandbox",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/css-sandbox.cjs.js",
   "module": "dist/css-sandbox.esm.js",
   "browser": "dist/css-sandbox.umd.js",

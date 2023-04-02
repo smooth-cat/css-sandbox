@@ -1,2 +1,1 @@
-console.log('hello world!');
-export type Obj = { name: string };
+console.log('微前端样式隔离');

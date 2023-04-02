@@ -18,8 +18,13 @@ fs.writeFileSync(path.resolve(process.cwd(), './package.json'), JSON.stringify(p
 
 
 changeFileSync(cwd('./.npmrc'), () => `registry = "https://registry.npmjs.com"`);
-// 发布
-exec('npm publish  --access=public');
-changeFileSync(cwd('./.npmrc'), () => `registry = "https://registry.npmmirror.com"`);
 
-console.log(`${newVal} 发布成功🤡~`)
+try {
+  // 发布
+  exec('npm publish  --access=public');
+  console.log(`${newVal} 发布成功🤡~`)
+} catch() {
+  console.log(`${newVal} 发布失败😭~`);
+};
+
+changeFileSync(cwd('./.npmrc'), () => `registry = "https://registry.npmmirror.com"`);
