@@ -4,37 +4,37 @@ import { promisify } from 'util';
 import path from 'path';
 import SHA256 from 'crypto-js/sha256';
 
-export type Cb = (data: string, p: string) => Promise<string|undefined> | string | void;
+export type Cb = (data: string, p: string) => Promise<string | undefined> | string | void;
 
 export const globP = promisify(glob);
-export const CONF = { 'encoding': 'utf-8' } as const;
+export const CONF = { encoding: 'utf-8' } as const;
 export const loopFiles = (pattern: string, cb?: Cb) => {
-  return new Promise<boolean>((rawR) => {
+  return new Promise<boolean>(rawR => {
     glob(pattern, (e, files) => {
-      if(e) return rawR(false);
+      if (e) return rawR(false);
       let count = 0;
       const max = files.length;
       const resolve = (x: boolean) => {
         count++;
-        if(count === max) {
+        if (count === max) {
           rawR(x);
         }
-      }
-      files.forEach((p) => {
-        readFile(p, CONF, async(e, data) => {
-          if(e) return resolve(false);
+      };
+      files.forEach(p => {
+        readFile(p, CONF, async (e, data) => {
+          if (e) return resolve(false);
           const res = await cb(data, p);
           if (typeof res === 'string') {
-            writeFile(p, res, (e) => {
+            writeFile(p, res, e => {
               resolve(!e);
             });
           } else {
             resolve(true);
           }
-        })
-      })
+        });
+      });
     });
-  })
+  });
 };
 
 /** path */
@@ -57,12 +57,9 @@ export function changeJsonSync(path: string, handle: (dt: any) => any) {
 export const cwd = (p: string) => path.resolve(process.cwd(), p);
 export const relative = (p: string) => path.resolve(__dirname, p);
 
-
-
-
 /** 生成 hash */
 export const createHash = (len: number) => {
   const TimeStamp = String(Date.now());
   const hash = SHA256(TimeStamp).toString().substring(0, len); // 输出前 16 个字符作为 hash 值
   return hash;
-}
+};

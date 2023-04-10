@@ -1,9 +1,8 @@
 {
   "name": "css-sandbox",
-  "version": "0.0.4",
-  "main": "dist/css-sandbox.cjs.js",
-  "module": "dist/css-sandbox.esm.js",
-  "browser": "dist/css-sandbox.umd.js",
+  "version": "0.0.8",
+  "main": "dist/node.js",
+  "browser": "dist/browser.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
@@ -20,6 +19,9 @@
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
   },
+  "bin": {
+    "css-sandbox": "bin/cli.js"
+  },
   "scripts": {
     "ini": "node scripts/init.js",
     "build": "rm -rf ./dist && webpack",
@@ -29,7 +31,8 @@
     "test": "node ./bin/cli.js \"./test copy/**\" -if \"./test copy/b.css\" -sl"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "license": "MIT",
   "keyWords": [

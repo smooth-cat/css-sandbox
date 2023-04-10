@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    index: './src/index.ts'
+    node: './src/node/index.ts',
+    browser: './src/browser/index.ts'
   },
   module: {
     rules: [
@@ -46,7 +47,8 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: {
-      type: 'commonjs'
+      type: 'umd',
+      name: 'CssSandbox',
     }
   }
 };

@@ -1,5 +1,5 @@
 @media screen and (min-width: 480px) {
-  [sandbox_006b713b].ggg, [sandbox_006b713b]#bbb {
+  [sandbox_cb5c0edb].ggg, [sandbox_cb5c0edb]#bbb {
 
   }
   
@@ -8,10 +8,10 @@
   }
 }
 
-[sandbox_006b713b]#main {
+[sandbox_cb5c0edb]#main {
   border: 1px solid black;
 }
 
-[sandbox_006b713b]ul li  {
+[sandbox_cb5c0edb]ul li  {
   padding: 5px;
 }
