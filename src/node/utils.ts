@@ -3,6 +3,7 @@ import { readFile, readFileSync, writeFile, writeFileSync } from 'fs';
 import { promisify } from 'util';
 import path from 'path';
 import SHA256 from 'crypto-js/sha256';
+import { ICssSandBoxOption, IOption } from '../shared';
 
 export type Cb = (data: string, p: string) => Promise<string | undefined> | string | void;
 
@@ -63,3 +64,5 @@ export const createHash = (len: number) => {
   const hash = SHA256(TimeStamp).toString().substring(0, len); // 输出前 16 个字符作为 hash 值
   return hash;
 };
+
+export const onlyHasPrefix = (opt: ICssSandBoxOption) => (!opt.scope && opt.prefix);

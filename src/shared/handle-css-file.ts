@@ -2,6 +2,7 @@
  * @Description: 通用处理单个 css 字符串替换
  */
 
+import { Log } from './constant';
 import { IOption } from './decorator';
 import { LimitMap } from './limit-map';
 import { pairs } from './pairs';
@@ -75,7 +76,7 @@ export const replaceSelector: IHandleSingle = (str: string, opt: IOption) => {
   return handled;
 };
 
-export const debugLog = (raw: string, handled: string) => console.log('[css-sandbox-debug]', { raw, handled });
+export const debugLog = (raw: string, handled: string) => console.log(Log.Debug, { raw, handled });
 
 export const handleSelector = (selector: string, opt: IOption) => {
   let { prefix, exclude, transform, body, idClassOnly } = opt;

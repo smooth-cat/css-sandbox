@@ -1,5 +1,5 @@
 import { program } from 'commander';
-import { readJsonSync, cwd } from './utils';
+import { readJsonSync, cwd, onlyHasPrefix } from './utils';
 import { CssSandbox } from './css-sandbox';
 
 const pkg = readJsonSync(cwd('./package.json'));
@@ -18,7 +18,7 @@ export const execCli = () => {
     .option('-o, --id-class-only', `只对 包含 id 或 class 选择器 的做替换`)
     .option('-sl, --stylis-css-sandbox-plugin', `是否与 stylis-css-sandbox-plugin 联动`)
     .action((patten, opt) => {
-      (!opt.scope && opt.prefix) ? CssSandbox.prefix(patten, opt) : CssSandbox.sandbox(patten, opt);
+      onlyHasPrefix(opt) ? CssSandbox.prefix(patten, opt) : CssSandbox.sandbox(patten, opt);
     });
 
   program.parse();
