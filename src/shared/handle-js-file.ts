@@ -11,7 +11,7 @@ export const sandboxHash = (attr: string) => `\nfunction ____sandboxHash(){retur
 
 export type IWriteSingle = (css: string, opt: ICssSandBoxOption) => string;
 
-export const rewriteCreateElement: IWriteSingle = (js, opt = {}) => {
+export const simpleRewriteCreateElement: IWriteSingle = (js, opt = {}) => {
   const { scope, stylisCssSandboxPlugin } = opt;
 
   const regStr = `(${CreateElementStatement})|(${SandboxHashPropStatement})`;

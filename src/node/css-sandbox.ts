@@ -1,14 +1,17 @@
-import { ICssSandBoxOption, IOption, Opt, Ovr, SandboxOpt, replaceSelector, rewriteCreateElement } from '../shared';
+import { ICssSandBoxOption, IOption, Opt, Ovr, SandboxOpt, replaceSelector, simpleRewriteCreateElement } from '../shared';
 import { globP, loopFiles } from './utils';
 
-const SuffixStrategy = {
-  css: replaceSelector,
-  js: rewriteCreateElement
-};
 
 export class CssSandbox {
   
   private static base(patten: string, opt: IOption, handleJs = false) {
+    const SuffixStrategy = {
+      css: replaceSelector,
+      // TODO: 补充复杂替换
+      js: opt.simpleReplaceCreateElement ? simpleRewriteCreateElement : simpleRewriteCreateElement
+    };
+
+
     const ignoreFilesP: Promise<string[]> = opt.ignoreFiles
       ? globP(opt.ignoreFiles).then(
           v => v,

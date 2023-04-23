@@ -5,6 +5,9 @@ import { RuleSetRule } from 'webpack';
 const CssSuffix = ['css', 'less', 'scss', 'sass'];
 const JsSuffix = ['js', 'jsx', 'ts', 'tsx'];
 
+/**
+ * @deprecated 暂不支持，考虑到 vue， react 框架复杂的 loader 逻辑
+ */
 export class WebpackPlugin {
   options: ICssSandBoxOption;
   constructor(opt: ICssSandBoxOption) {

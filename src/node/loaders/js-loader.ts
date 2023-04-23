@@ -1,11 +1,11 @@
-import { ICssSandBoxOption, Opt, Ovr, SandboxOpt, rewriteCreateElement } from "../../shared";
+import { ICssSandBoxOption, Opt, Ovr, SandboxOpt, simpleRewriteCreateElement } from "../../shared";
 import { Log } from "../../shared/constant";
 import { globP } from "../utils";
 
 class Util {
   @Ovr()
   static replace(js: string, @Opt @SandboxOpt opt: ICssSandBoxOption) {
-    return rewriteCreateElement(js, opt)
+    return simpleRewriteCreateElement(js, opt)
   }
 }
 

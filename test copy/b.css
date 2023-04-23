@@ -1,11 +1,11 @@
-[sandbox_cb5c0edb]a[aaa] div[bbb], [sandbox_cb5c0edb]acc > cca {
+a[aaa] div[bbb], acc > cca {
   justify-content: center;
 }
 
-[sandbox_cb5c0edb]a::after {
+a::after {
   color: red;
 }
 
-[sandbox_cb5c0edb]::before {
+::before {
   width: 10px;
 }

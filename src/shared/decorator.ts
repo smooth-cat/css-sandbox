@@ -22,10 +22,10 @@ export const createRewriteParamFn = (...fns: ((target: any) => any)[]) =>
   }) as ParameterDecorator;
 
 /** 配合重写函数参数 */
-export const Ovr = (decUndefined = true) => ((target, key, descriptor: TypedPropertyDescriptor<any>) => {
+export const Ovr = (decorateUndefined = true) => ((target, key, descriptor: TypedPropertyDescriptor<any>) => {
   const rawFn = target[key];
   descriptor.value = function (...args: any[]) {
-    const argsLen = decUndefined ? rawFn.length : args.length;
+    const argsLen = decorateUndefined ? rawFn.length : args.length;
     // 重写每个属性
     for (let i = 0; i < argsLen; i++) {
       const fns = OverrideCollection?.get(target)?.get(key)?.[i];
@@ -55,6 +55,8 @@ export type IOption = {
   debug?: boolean;
   /** 是否只处理包含 id 和 class 的选择器 */
   idClassOnly?: boolean;
+  /** 简单替换 document.createElement */
+  simpleReplaceCreateElement?: boolean;
 };
 
 export const _handleOpt = (opt: IOption = {}) => {
@@ -62,6 +64,8 @@ export const _handleOpt = (opt: IOption = {}) => {
     body: false,
     debug: false,
     idClassOnly: false,
+    // TODO: 复杂的 window.document 追踪（暂不实现）大部分打包工具不会做 window 的重写来压缩体积
+    simpleReplaceCreateElement: true,
     ...opt
   };
 };

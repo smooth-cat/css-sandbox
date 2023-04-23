@@ -1,5 +1,5 @@
 @media screen and (min-width: 480px) {
-  [sandbox_cb5c0edb].ggg, [sandbox_cb5c0edb]#bbb {
+  .ggg, #bbb {
 
   }
   
@@ -8,10 +8,10 @@
   }
 }
 
-[sandbox_cb5c0edb]#main {
+#main {
   border: 1px solid black;
 }
 
-[sandbox_cb5c0edb]ul li  {
+ul li  {
   padding: 5px;
 }
