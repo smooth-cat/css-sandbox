@@ -5,13 +5,13 @@ import path from 'path';
 import SHA256 from 'crypto-js/sha256';
 import { ICssSandBoxOption, IOption } from '../shared';
 
-export type Cb = (data: string, p: string) => Promise<string | undefined> | string | void;
+export type ICb = (data: string, p: string) => Promise<string | undefined> | string | void;
 
 export const globP = promisify(glob);
 export const CONF = { encoding: 'utf-8' } as const;
-export const loopFiles = (pattern: string, cb?: Cb) => {
+export const loopFiles = (pattern: string, cb?: ICb) => {
   return new Promise<boolean>(rawR => {
-    glob(pattern, (e, files) => {
+    glob(pattern, { absolute: true }, (e, files) => {
       if (e) return rawR(false);
       let count = 0;
       const max = files.length;
@@ -65,4 +65,4 @@ export const createHash = (len: number) => {
   return hash;
 };
 
-export const onlyHasPrefix = (opt: ICssSandBoxOption) => (!opt.scope && opt.prefix);
+export const onlyHasPrefix = (opt: ICssSandBoxOption) => !opt.scope && opt.prefix;

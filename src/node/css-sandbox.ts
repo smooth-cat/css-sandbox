@@ -1,9 +1,15 @@
-import { ICssSandBoxOption, IOption, Opt, Ovr, SandboxOpt, replaceSelector, simpleRewriteCreateElement } from '../shared';
+import {
+  ICssSandBoxOption,
+  IOption,
+  Opt,
+  Ovr,
+  SandboxOpt,
+  replaceSelector,
+  simpleRewriteCreateElement
+} from '../shared';
 import { globP, loopFiles } from './utils';
 
-
 export class CssSandbox {
-  
   private static base(patten: string, opt: IOption, handleJs = false) {
     const SuffixStrategy = {
       css: replaceSelector,
@@ -11,9 +17,8 @@ export class CssSandbox {
       js: opt.simpleReplaceCreateElement ? simpleRewriteCreateElement : simpleRewriteCreateElement
     };
 
-
     const ignoreFilesP: Promise<string[]> = opt.ignoreFiles
-      ? globP(opt.ignoreFiles).then(
+      ? globP(opt.ignoreFiles, { absolute: true }).then(
           v => v,
           () => []
         )
@@ -59,7 +64,7 @@ export class CssSandbox {
 // CssSandbox.sandbox('./test copy/**', {
 //   scope: 'ok',
 //   ignoreFiles: './test copy/b.css',
-//   stylisCssSandboxPlugin: true
+//   idClassOnly: true
 // });
 
 // CssSandbox.sandbox('./test copy/**')

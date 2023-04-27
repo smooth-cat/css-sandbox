@@ -1,4 +1,4 @@
-import { Ovr, Opt, IOption, replaceSelector, StylisSandboxOpt, IStylisCssSandBoxOption } from "../../shared";
+import { Ovr, Opt, IOption, replaceSelector, StylisSandboxOpt, IStylisCssSandBoxOption } from '../../shared';
 
 /** stylis 插件 上下文类型 */
 export enum StylisCtxLevel {
@@ -23,7 +23,7 @@ export class StylisPlugin {
    * @returns fn () => string;
    */
   @Ovr()
-  static createStylisPrefixPlugin(@Opt opt: IOption) {
+  static createPrefixPlugin(@Opt opt: IOption) {
     const fn = (ctx: StylisCtxLevel, str: string) => {
       /** 非 css 类型不处理 */
       const typeNotCss = ctx !== StylisCtxLevel.postProcess;
@@ -41,7 +41,7 @@ export class StylisPlugin {
 
   /** 注入 cssSandbox 类名 */
   @Ovr()
-  static createStylisSandboxPlugin(@StylisSandboxOpt opt?: IStylisCssSandBoxOption) {
-    return StylisPlugin.createStylisPrefixPlugin(opt);
+  static createSandboxPlugin(@StylisSandboxOpt opt?: IStylisCssSandBoxOption) {
+    return StylisPlugin.createPrefixPlugin(opt);
   }
 }

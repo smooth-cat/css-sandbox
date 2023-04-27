@@ -1,5 +1,5 @@
-import { ICssSandBoxOption } from "../../shared";
-import { loopTree } from "../../shared/loop-tree";
+import { ICssSandBoxOption } from '../../shared';
+import { loopTree } from '../../shared/loop-tree';
 import { RuleSetRule } from 'webpack';
 
 const CssSuffix = ['css', 'less', 'scss', 'sass'];
@@ -19,16 +19,12 @@ export class WebpackPlugin {
       list: rules,
       children: 'oneOf',
       leave(rule) {
-        rule.test
+        rule.test;
       }
-    })
+    });
   }
 
-  handleCssUses = () => {
-    
-  }
+  handleCssUses = () => {};
 
-  handleJsUses = () => {
-
-  }
+  handleJsUses = () => {};
 }

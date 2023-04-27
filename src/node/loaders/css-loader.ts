@@ -29,7 +29,7 @@ export default async function cssLoader(this: any, source: string) {
 
   // 有忽略文件路径则需要判断是否执行
   try {
-    const paths = await globP(opt.ignoreFiles);
+    const paths = await globP(opt.ignoreFiles, { absolute: true });
 
     const shouldReplace = !paths.includes(filePath);
 

@@ -1,4 +1,4 @@
-import { TransformCallback } from 'postcss';
+import postcss, { TransformCallback } from 'postcss';
 import {
   Ovr,
   Opt,
@@ -7,16 +7,29 @@ import {
   handleSelector,
   debugLog,
   SandboxOpt,
-  ICssSandBoxOption
+  ICssSandBoxOption,
+  DropHashOpt
 } from '../../shared';
+import { readFileSync, writeFileSync } from 'fs';
+import { cwd } from '../utils';
+import { glob } from 'glob';
 
 // postcss 会对改变后的 ast 重新触发 Rule
 const walked = new WeakSet();
 
 export class PostCssPlugin {
   @Ovr()
-  static createPostCssPrefixPlugin(@Opt opt: IOption) {
+  static createPrefixPlugin(@Opt opt: IOption) {
+    const { ignoreFiles, debug } = opt;
+
+    const ignoreFilePaths = ignoreFiles ? glob.sync(ignoreFiles, { absolute: true }) : [];
+
     return function (root, result) {
+      // 判断忽略的文件
+      const filePath = root?.source?.input?.file;
+
+      if (filePath && ignoreFilePaths.includes(filePath)) return;
+
       // 获取原始字符串
       const raw = root.toString();
 
@@ -36,12 +49,26 @@ export class PostCssPlugin {
       const res = result.css;
 
       // 获取修改后字符串
-      opt.debug && debugLog(raw, res);
+      debug && debugLog(raw, res);
     } as TransformCallback;
   }
 
   @Ovr()
-  static createPostCssSandboxPlugin(@SandboxOpt opt?: ICssSandBoxOption) {
-    return PostCssPlugin.createPostCssPrefixPlugin(opt);
+  static createSandboxPlugin(@SandboxOpt @DropHashOpt opt?: ICssSandBoxOption) {
+    return PostCssPlugin.createPrefixPlugin(opt);
   }
 }
+
+// const plugin = PostCssPlugin.createSandboxPlugin({
+//   scope: 'my-sandbox',
+//   ignoreFiles: './test copy/**'
+// });
+// const file = cwd('./test copy/a.css');
+
+// const css = readFileSync(file, { encoding: 'utf-8' });
+// postcss([plugin])
+//   .process(css, { from: file })
+//   .then(res => {
+//     console.log(res.css);
+//     writeFileSync(file, res.css);
+//   });

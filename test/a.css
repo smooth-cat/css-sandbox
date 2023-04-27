@@ -15,3 +15,7 @@
 ul li  {
   padding: 5px;
 }
+
+:not(.abc) {
+  
+}
