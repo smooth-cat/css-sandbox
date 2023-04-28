@@ -22,7 +22,7 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: {
-      type: 'commonjs',
+      type: 'umd',
       name: 'css_sandbox',
     }
   },

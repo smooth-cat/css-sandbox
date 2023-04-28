@@ -44,15 +44,49 @@ export function readJsonSync(path: string) {
   return res;
 }
 
-export function writeJsonSync(path: string, data: any) {
-  /** 标准两空格缩进 */
-  writeFileSync(path, JSON.stringify(data, null, '  '));
+// export function writeJsonSync(path: string, data: any) {
+//   /** 标准两空格缩进 */
+//   writeFileSync(path, JSON.stringify(data, null, '  '));
+// }
+
+// export function changeJsonSync(path: string, handle: (dt: any) => any) {
+//   const res = readJsonSync(path);
+//   const data = handle(res);
+//   writeJsonSync(path, data);
+// }
+
+function hasOpt(opt: string, key: string) {
+  const opts = new Set(opt.split('.'));
+  return opts.has(key);
 }
 
-export function changeJsonSync(path: string, handle: (dt: any) => any) {
-  const res = readJsonSync(path);
+function readFile1(path: string, opt=''): any {
+  if(hasOpt(opt, 'c')) {
+    path = cwd(path);
+  }
+  const rawContent = readFileSync(path, {'encoding': 'utf-8'});
+  return hasOpt(opt, 'j') ? JSON.parse(rawContent) : rawContent;
+}
+
+function writeFile1(path: string, data: any, opt='') {
+  if(hasOpt(opt, 'c')) {
+    path = cwd(path);
+  }
+
+  data = hasOpt(opt, 'j') ? JSON.stringify(data) : data;
+  writeFileSync(path, data);
+}
+
+function changeFile1(path: string, handle: (dt: any) => any, opt='') {
+  const res = readFile1(path, opt);
   const data = handle(res);
-  writeJsonSync(path, data);
+  writeFile1(path, data, opt);
+}
+
+export {
+  readFile1 as readFile,
+  writeFile1  as writeFile,
+  changeFile1  as changeFile,
 }
 
 export const cwd = (p: string) => path.resolve(process.cwd(), p);

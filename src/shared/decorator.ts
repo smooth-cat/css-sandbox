@@ -121,7 +121,7 @@ const __temp_obj = {
   ____sandboxHash_____: () => ''
 };
 // 确保对象被留下，不会被打包优化
-console.log(JSON.stringify(__temp_obj));
+console.warn(JSON.stringify(__temp_obj).slice(0,0));
 
 export type IStylisCssSandBoxOption = Omit<IOption, 'prefix'>;
 

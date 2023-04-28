@@ -1,6 +1,6 @@
 {
   "name": "css-sandbox",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "dist/node.js",
   "browser": "build/browser.js",
   "types": "dist/index.d.ts",
