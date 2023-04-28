@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createPrefixPlugin 方法 增加前缀名 my-app 1`] = `
+"@media screen and (min-width: 480px) {
+  my-app.ggg, my-app#bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+my-app#main {
+  border: 1px solid black;
+}
+
+my-appul li  {
+  padding: 5px;
+}
+
+my-app:not(.abc) {
+  
+}"
+`;
+
+exports[`createSandboxPlugin 方法 css 沙箱给方法增加一个 [css-sandbox] 的hash，这个值是通过编译时 js 替换得到的 src/shared/handle-js-file 有具体操作 1`] = `
+"@media screen and (min-width: 480px) {
+  my-app.ggg, my-app#bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+my-app#main {
+  border: 1px solid black;
+}
+
+my-appul li  {
+  padding: 5px;
+}
+
+my-app:not(.abc) {
+  
+}"
+`;

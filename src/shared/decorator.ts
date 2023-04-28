@@ -118,7 +118,7 @@ export const DropHashOpt = createRewriteParamFn(_handleDropHashOpt);
 /*----------------- stylisCssSandbox 函数的 opt 修正 -----------------*/
 const __temp_obj = {
   // 这里最终会被替换成编译时的 sandbox 类名
-  ____sandboxHash_____: () => ''
+  ____sandboxHash_____: () => 'css-sandbox'
 };
 // 确保对象被留下，不会被打包优化
 console.warn(JSON.stringify(__temp_obj).slice(0,0));
@@ -126,7 +126,7 @@ console.warn(JSON.stringify(__temp_obj).slice(0,0));
 export type IStylisCssSandBoxOption = Omit<IOption, 'prefix'>;
 
 export const _handleStylisSandboxOpt = (opt: IStylisCssSandBoxOption = {}) => {
-  const prefix = __temp_obj.____sandboxHash_____();
+  const prefix = `[${__temp_obj.____sandboxHash_____()}]`;
   return { ...opt, prefix };
 };
 
