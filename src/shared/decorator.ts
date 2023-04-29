@@ -25,17 +25,18 @@ export const createRewriteParamFn = (...fns: ((target: any) => any)[]) =>
 export const Ovr = (decorateUndefined = true) =>
   ((target, key, descriptor: TypedPropertyDescriptor<any>) => {
     const rawFn = target[key];
+    const argsFns = OverrideCollection?.get(target)?.get(key);
+    OverrideCollection.delete(target);
     descriptor.value = function (...args: any[]) {
       const argsLen = decorateUndefined ? rawFn.length : args.length;
       // 重写每个属性
       for (let i = 0; i < argsLen; i++) {
-        const fns = OverrideCollection?.get(target)?.get(key)?.[i];
+        const fns = argsFns[i];
         if (fns) {
           args[i] = fns.reduce((pRes, f) => f(pRes), args[i]);
         }
       }
       // 清除 map 中转
-      OverrideCollection.delete(target);
       return rawFn.call(this, ...args);
     };
   }) as MethodDecorator;
@@ -108,7 +109,8 @@ export const SandboxOpt = createRewriteParamFn(_handleSandboxOpt);
 /*----------------- 单独处理的js/css 函数的 opt 修正, 如 babelPlugin、postCssPlugin -----------------*/
 const _handleDropHashOpt = (opt: ICssSandBoxOption = {}) => {
   if (!opt.scope) return opt;
-  const scope = opt.scope.split('_')[0];
+
+  const scope = opt.scope.slice(0, opt.scope.lastIndexOf('_'));
   const prefix = `[${scope}]`;
   return { ...opt, scope, prefix };
 };

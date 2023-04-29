@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createPrefixPlugin 方法 增加前缀类名 my-app 1`] = `
+exports[`createPrefixPlugin 1.指定前缀 1`] = `
 "@media screen and (min-width: 480px) {
   .my-app .ggg, .my-app #bbb {
 
@@ -24,7 +24,7 @@ exports[`createPrefixPlugin 方法 增加前缀类名 my-app 1`] = `
 }"
 `;
 
-exports[`createSandboxPlugin 方法 css 沙箱给方法增加一个 [css-sandbox] 的hash，这个值是通过编译时 js 替换得到的 src/shared/handle-js-file 有具体操作 1`] = `
+exports[`createSandboxPlugin 1.使用默认 css 沙箱名替换 1`] = `
 "@media screen and (min-width: 480px) {
   [css-sandbox].ggg, [css-sandbox]#bbb {
 
@@ -44,6 +44,30 @@ exports[`createSandboxPlugin 方法 css 沙箱给方法增加一个 [css-sandbox
 }
 
 [css-sandbox]:not(.abc) {
+  
+}"
+`;
+
+exports[`createSandboxPlugin 2.使用自定义 css 沙箱名 1`] = `
+"@media screen and (min-width: 480px) {
+  [my-sandbox].ggg, [my-sandbox]#bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+[my-sandbox]#main {
+  border: 1px solid black;
+}
+
+[my-sandbox]ul li  {
+  padding: 5px;
+}
+
+[my-sandbox]:not(.abc) {
   
 }"
 `;

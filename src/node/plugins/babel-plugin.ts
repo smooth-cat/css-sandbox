@@ -6,6 +6,7 @@ import {
   ReplaceFnStatement,
   SandboxHashId,
   SandboxOpt,
+  last,
   rewrittenFn,
   sandboxHash
 } from '../../shared';
@@ -44,13 +45,17 @@ export class BabelPlugin {
 
       let matchedCreateElement = false;
       let matchedSandboxHash = false;
+      let rewrittenFnNodePath: NodePath;
 
       const handleCallExp: ICallExpression = (path, state) => {
         if (shouldIgnore(state)) return;
 
         const callee = path.node.callee;
+        
+        /** 对手动添加的重写语句不需要再做替换了 */
+        const inAddedFn = rewrittenFnNodePath && rewrittenFnNodePath.isAncestor(path);
         // 是 document.createElement 的
-        if (isMemberExp(callee, ['document', 'createElement'])) {
+        if (!inAddedFn && isMemberExp(callee, ['document', 'createElement'])) {
           matchedCreateElement = true;
           path.node.callee = t.identifier(ReplaceFnStatement);
         }
@@ -68,6 +73,8 @@ export class BabelPlugin {
         const sandboxHashAst = temp(sandboxHash(scope))();
         if (matchedCreateElement) {
           path.pushContainer('body', createElementAst);
+          
+          rewrittenFnNodePath = last(path.get('body'));
         }
         if (matchedSandboxHash) {
           path.pushContainer('body', sandboxHashAst);
@@ -76,8 +83,8 @@ export class BabelPlugin {
 
       return {
         visitor: {
+          CallExpression: { enter: handleCallExp },
           Program: { exit: handleProgram },
-          CallExpression: { enter: handleCallExp }
         }
       };
     };

@@ -1,3 +1,4 @@
+import { readFile } from '../../node/utils';
 import { Ovr, Opt, IOption, replaceSelector, StylisSandboxOpt, IStylisCssSandBoxOption } from '../../shared';
 
 /** stylis 插件 上下文类型 */
@@ -45,3 +46,9 @@ export class StylisPlugin {
     return StylisPlugin.createPrefixPlugin(opt);
   }
 }
+
+// const css = readFile('./test/a.css', 'c');
+// StylisPlugin.createPrefixPlugin({prefix: '.my-app '})(StylisCtxLevel.postProcess, css);
+// const res = StylisPlugin.createSandboxPlugin({})(StylisCtxLevel.postProcess, css);
+
+// const temp = res;

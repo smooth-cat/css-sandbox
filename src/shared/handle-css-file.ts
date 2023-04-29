@@ -27,9 +27,10 @@ export const replaceSelector: IHandleSingle = (str: string, opt: IOption) => {
     return str;
   }
 
+  const args = str+JSON.stringify(opt);
   // 缓存
-  if (memoMap.has(str)) {
-    return memoMap.get(str);
+  if (memoMap.has(args)) {
+    return memoMap.get(args);
   }
 
   // 1. 匹配所有选择器，即 match 内容以及 左边界值（选择器）
@@ -72,7 +73,7 @@ export const replaceSelector: IHandleSingle = (str: string, opt: IOption) => {
     debugLog(str, handled);
   }
   // 缓存
-  memoMap.set(str, handled);
+  memoMap.set(args, handled);
   return handled;
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "css-sandbox",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "main": "dist/node.js",
   "browser": "build/browser.js",
   "types": "dist/index.d.ts",
@@ -42,7 +42,7 @@
     "dev": "webpack -w",
     "reset": "cp -rf ./test/ \"./test copy\"",
     "test": "node ./bin/cli.js \"./test copy/**\" -if \"./test copy/b.css\" -sl",
-    "ut": "jest --coverage --watch"
+    "ut": "jest --coverage --watchAll"
   },
   "files": [
     "dist",

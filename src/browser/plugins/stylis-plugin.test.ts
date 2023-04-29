@@ -3,13 +3,13 @@ import { IOption } from '../../shared';
 import { StylisCtxLevel, StylisPlugin } from './stylis-plugin';
 const css = readFile('./test/a.css', 'c');
 
-const callPlugin = (css: string, fn: Function, opt: IOption) => fn.call(StylisPlugin, { ...opt })(StylisCtxLevel.postProcess, css);
+const callPlugin = (css: string, fn: Function, opt: IOption) => fn(opt)(StylisCtxLevel.postProcess, css);
 
 
 describe('createPrefixPlugin 方法', () => {
-  it('增加前缀名 my-app', () => {
+  it('增加前缀类名 my-app', () => {
     const res = callPlugin(css, StylisPlugin.createPrefixPlugin, {
-      prefix: 'my-app'
+      prefix: '.my-app '
     })
     expect(res).toMatchSnapshot()
   })
@@ -18,7 +18,7 @@ describe('createPrefixPlugin 方法', () => {
 
 describe('createSandboxPlugin 方法', () => {
   it('css 沙箱给方法增加一个 [css-sandbox] 的hash，这个值是通过编译时 js 替换得到的 src/shared/handle-js-file 有具体操作', () => {
-    const res = callPlugin(css, StylisPlugin.createPrefixPlugin, {});
+    const res = callPlugin(css, StylisPlugin.createSandboxPlugin, {});
     expect(res).toMatchSnapshot()
   })
 });
