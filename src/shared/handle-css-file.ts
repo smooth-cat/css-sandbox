@@ -27,7 +27,7 @@ export const replaceSelector: IHandleSingle = (str: string, opt: IOption) => {
     return str;
   }
 
-  const args = str+JSON.stringify(opt);
+  const args = str + JSON.stringify(opt);
   // 缓存
   if (memoMap.has(args)) {
     return memoMap.get(args);

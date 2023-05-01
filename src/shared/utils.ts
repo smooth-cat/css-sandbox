@@ -13,12 +13,12 @@ export function createHash(len: number) {
   let str = '';
   for (let i = 0; i < len; i++) {
     let remain = temp.length;
-    if(remain === 0) {
+    if (remain === 0) {
       temp = [...characters];
       remain = temp.length;
     }
     const charI = Math.floor(Math.random() * remain);
-    const [char] =  temp.splice(charI, 1);
+    const [char] = temp.splice(charI, 1);
     str += char;
   }
   return str;
@@ -28,4 +28,3 @@ export const isObjectLike = (v: any) => Object.prototype.toString.call(v).match(
 export const last = (arr: any[]) => arr[arr.length - 1];
 
 // console.log(createHash(20));
- 

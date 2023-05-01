@@ -1,6 +1,6 @@
 {
   "name": "css-sandbox",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "dist/node.js",
   "browser": "build/browser.js",
   "types": "dist/index.d.ts",
@@ -17,6 +17,7 @@
     "crypto-js": "^4.1.1",
     "glob": "^7.2.3",
     "jest": "^29.5.0",
+    "memfs": "^3.5.1",
     "postcss": "^8.4.21",
     "readline-sync": "^1.4.10",
     "rollup": "^2.60.0",

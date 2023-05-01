@@ -123,7 +123,7 @@ const __temp_obj = {
   ____sandboxHash_____: () => 'css-sandbox'
 };
 // 确保对象被留下，不会被打包优化
-console.warn(JSON.stringify(__temp_obj).slice(0,0));
+console.warn(JSON.stringify(__temp_obj).slice(0, 0));
 
 export type IStylisCssSandBoxOption = Omit<IOption, 'prefix'>;
 

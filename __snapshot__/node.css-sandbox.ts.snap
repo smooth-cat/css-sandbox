@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prefix 方法 给css文件增加前缀 .my-app 1`] = `
+"
+@media screen and (min-width: 480px) {
+  .my-app .ggg, .my-app #bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+.my-app #main {
+  border: 1px solid black;
+}
+
+.my-app ul li  {
+  padding: 5px;
+}
+
+.my-app :not(.abc) {
+  
+}
+const div = document.createElement('div');
+const a = {
+  ____sandboxHash_____: () => 1,
+}
+console.log(JSON.stringify(a)); 
+const hash = a.____sandboxHash_____();
+console.log(hash);
+.my-app a[aaa] div[bbb], .my-app acc > cca {
+  justify-content: center;
+}
+
+.my-app a::after {
+  color: red;
+}
+
+.my-app ::before {
+  width: 10px;
+}"
+`;
+
+exports[`sandbox 方法 给css文件增加属性沙箱 [my-sandbox] 1`] = `
+"
+@media screen and (min-width: 480px) {
+  [my-sandbox_12345678].ggg, [my-sandbox_12345678]#bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+[my-sandbox_12345678]#main {
+  border: 1px solid black;
+}
+
+[my-sandbox_12345678]ul li  {
+  padding: 5px;
+}
+
+[my-sandbox_12345678]:not(.abc) {
+  
+}
+const div = documentDCreateElement('div');
+const a = {
+  ____sandboxHash_____: () => 1,
+}
+console.log(JSON.stringify(a)); 
+const hash =   ____sandboxHash_____();
+console.log(hash);
+function documentDCreateElement(...args){var el=document.createElement(...args);el.setAttribute('my-sandbox_12345678');return el;}
+function ____sandboxHash_____(){return 'my-sandbox_12345678';}
+[my-sandbox_12345678]a[aaa] div[bbb], [my-sandbox_12345678]acc > cca {
+  justify-content: center;
+}
+
+[my-sandbox_12345678]a::after {
+  color: red;
+}
+
+[my-sandbox_12345678]::before {
+  width: 10px;
+}"
+`;

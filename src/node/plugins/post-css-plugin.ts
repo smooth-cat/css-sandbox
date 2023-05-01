@@ -11,7 +11,7 @@ import {
   DropHashOpt
 } from '../../shared';
 import { readFileSync, writeFileSync } from 'fs';
-import { cwd } from '../utils';
+import { cwd, globSync } from '../utils';
 import { glob } from 'glob';
 
 // postcss 会对改变后的 ast 重新触发 Rule
@@ -22,7 +22,7 @@ export class PostCssPlugin {
   static createPrefixPlugin(@Opt opt: IOption) {
     const { ignoreFiles, debug } = opt;
 
-    const ignoreFilePaths = ignoreFiles ? glob.sync(ignoreFiles, { absolute: true }) : [];
+    const ignoreFilePaths = ignoreFiles ? globSync(ignoreFiles, { absolute: true }) : [];
 
     return function (root, result) {
       // 判断忽略的文件

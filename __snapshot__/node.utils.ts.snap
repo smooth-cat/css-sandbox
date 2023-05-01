@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readFile 方法 读取json文件 1`] = `
+{
+  "foo": "bar",
+}
+`;

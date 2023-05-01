@@ -11,7 +11,7 @@ import {
   sandboxHash
 } from '../../shared';
 import { Visitor, NodePath, transformFileSync } from '@babel/core';
-import { cwd } from '../utils';
+import { cwd, globSync } from '../utils';
 import { writeFileSync } from 'fs';
 import glob from 'glob';
 
@@ -25,7 +25,7 @@ export class BabelPlugin {
   @Ovr()
   static createSandboxPlugin(@Opt @SandboxOpt @DropHashOpt opt: ICssSandBoxOption) {
     const { scope, ignoreFiles } = opt;
-    const ignoreFilePaths = ignoreFiles ? glob.sync(ignoreFiles, { absolute: true }) : [];
+    const ignoreFilePaths = ignoreFiles ? globSync(ignoreFiles, { absolute: true }) : [];
 
     return function ({ types: t, template: temp }: any): any {
       const shouldIgnore = (state: any) => {
@@ -51,7 +51,7 @@ export class BabelPlugin {
         if (shouldIgnore(state)) return;
 
         const callee = path.node.callee;
-        
+
         /** 对手动添加的重写语句不需要再做替换了 */
         const inAddedFn = rewrittenFnNodePath && rewrittenFnNodePath.isAncestor(path);
         // 是 document.createElement 的
@@ -73,7 +73,7 @@ export class BabelPlugin {
         const sandboxHashAst = temp(sandboxHash(scope))();
         if (matchedCreateElement) {
           path.pushContainer('body', createElementAst);
-          
+
           rewrittenFnNodePath = last(path.get('body'));
         }
         if (matchedSandboxHash) {
@@ -84,7 +84,7 @@ export class BabelPlugin {
       return {
         visitor: {
           CallExpression: { enter: handleCallExp },
-          Program: { exit: handleProgram },
+          Program: { exit: handleProgram }
         }
       };
     };

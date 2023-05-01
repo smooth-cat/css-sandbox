@@ -8,6 +8,7 @@ import {
   simpleRewriteCreateElement
 } from '../shared';
 import { globP, loopFiles } from './utils';
+import path from 'path';
 
 export class CssSandbox {
   private static base(patten: string, opt: IOption, handleJs = false) {
@@ -25,11 +26,17 @@ export class CssSandbox {
       : Promise.resolve([]);
 
     return loopFiles(patten, async (data, p) => {
+      // 只处理 js 和 css 文件
+      if (!p.match(/(\.js|\.css)$/)) {
+        console.log(`${p} 不处理 ${path.extname(p)} 文件 😇`);
+        return;
+      }
+
       const ignorePaths = await ignoreFilesP;
 
       if (!handleJs && p.endsWith('.js')) {
         console.log(`${p} prefix 方法不处理 js文件 😇`);
-        return data;
+        return;
       }
 
       // 包含要忽略的文件就跳过

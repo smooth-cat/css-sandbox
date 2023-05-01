@@ -1,11 +1,14 @@
 import postcss from 'postcss';
-import { cwd, readFile } from '../utils';
 import { PostCssPlugin } from './post-css-plugin';
-import { transformFileSync } from '@babel/core';
-import { ICssSandBoxOption, IOption } from '../../shared';
+import { ICssSandBoxOption } from '../../shared';
+import { initFile } from '../../../jest-config/utils';
+import fs from 'fs';
+import path from 'path';
 
-const cssFilePath = cwd('./test/a.css');
-const css = readFile(cssFilePath);
+const dir = initFile(__filename);
+const cssFilePath = path.resolve(dir, './a.css');
+const css = fs.readFileSync(cssFilePath, 'utf-8');
+
 const callPlugin = async (css: string, fn: Function, opt: ICssSandBoxOption) => {
   const plugin = fn(opt);
   return postcss([plugin])
@@ -14,16 +17,16 @@ const callPlugin = async (css: string, fn: Function, opt: ICssSandBoxOption) => 
 };
 
 describe('createPrefixPlugin', () => {
-  it('1.指定前缀', async() => {
+  it('1.指定前缀', async () => {
     const res = await callPlugin(css, PostCssPlugin.createPrefixPlugin, {
-      prefix: '.my-app ',
+      prefix: '.my-app '
     });
     expect(res).toMatchSnapshot();
   });
 });
 
 describe('createSandboxPlugin', () => {
-  it('1.使用默认 css 沙箱名替换', async() => {
+  it('1.使用默认 css 沙箱名替换', async () => {
     const res = await callPlugin(css, PostCssPlugin.createSandboxPlugin, {});
     expect(res).toMatchSnapshot();
   });
@@ -35,13 +38,10 @@ describe('createSandboxPlugin', () => {
     expect(res).toMatchSnapshot();
   });
 
-  it('3.忽略文件', async() => {
+  it('3.忽略文件', async () => {
     const res = await callPlugin(css, PostCssPlugin.createSandboxPlugin, {
-      ignoreFiles: './test/**'
+      ignoreFiles: `${dir}/**`
     });
-    expect(res).toBe(css); 
+    expect(res).toBe(css);
   });
-
 });
-
-

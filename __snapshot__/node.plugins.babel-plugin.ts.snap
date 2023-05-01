@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createSandboxPlugin 使用自定义 css 沙箱名 1`] = `
+exports[`createSandboxPlugin 使用自定义 css 沙箱名 my-sandbox 1`] = `
 "const div = documentDCreateElement('div');
 const a = {
   ____sandboxHash_____: () => 1

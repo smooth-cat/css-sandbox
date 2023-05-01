@@ -7,7 +7,25 @@ import { ICssSandBoxOption, IOption } from '../shared';
 
 export type ICb = (data: string, p: string) => Promise<string | undefined> | string | void;
 
-export const globP = promisify(glob);
+export const DefaultGlobOpt = { absolute: true, nodir: true };
+
+export const handleGlobProp = (args: any[]) => {
+  // 寻找到 options 项，为其增加
+  if (typeof args[1] !== 'function') {
+    args[1] = args[1] || {};
+    args[1] = { ...DefaultGlobOpt, ...args[1] };
+  }
+
+  return args;
+};
+
+const _globP = promisify(glob);
+
+// @ts-ignore
+export const globP: typeof _globP = (...args: any[]) => _globP(...handleGlobProp(args));
+// @ts-ignore
+export const globSync: (typeof glob)['sync'] = (...args: any[]) => glob.sync(...handleGlobProp(args));
+
 export const CONF = { encoding: 'utf-8' } as const;
 export const loopFiles = (pattern: string, cb?: ICb) => {
   return new Promise<boolean>(rawR => {
@@ -38,65 +56,39 @@ export const loopFiles = (pattern: string, cb?: ICb) => {
   });
 };
 
-/** path */
-export function readJsonSync(path: string) {
-  const res = JSON.parse(readFileSync(path, CONF));
-  return res;
-}
-
-// export function writeJsonSync(path: string, data: any) {
-//   /** 标准两空格缩进 */
-//   writeFileSync(path, JSON.stringify(data, null, '  '));
-// }
-
-// export function changeJsonSync(path: string, handle: (dt: any) => any) {
-//   const res = readJsonSync(path);
-//   const data = handle(res);
-//   writeJsonSync(path, data);
-// }
-
-function hasOpt(opt: string, key: string) {
+export function hasOpt(opt: string, key: string) {
   const opts = new Set(opt.split('.'));
   return opts.has(key);
 }
 
-function readFile1(path: string, opt=''): any {
-  if(hasOpt(opt, 'c')) {
+function readFile1(path: string, opt = ''): any {
+  if (hasOpt(opt, 'c')) {
     path = cwd(path);
   }
-  const rawContent = readFileSync(path, {'encoding': 'utf-8'});
+  const rawContent = readFileSync(path, { encoding: 'utf-8' });
   return hasOpt(opt, 'j') ? JSON.parse(rawContent) : rawContent;
 }
 
-function writeFile1(path: string, data: any, opt='') {
-  if(hasOpt(opt, 'c')) {
+function writeFile1(path: string, data: any, opt = '') {
+  if (hasOpt(opt, 'c')) {
     path = cwd(path);
   }
 
-  data = hasOpt(opt, 'j') ? JSON.stringify(data) : data;
+  data = hasOpt(opt, 'j') ? JSON.stringify(data, undefined, 2) : data;
   writeFileSync(path, data);
 }
 
-function changeFile1(path: string, handle: (dt: any) => any, opt='') {
+function changeFile1(path: string, handle: (dt: any) => any, opt = '') {
   const res = readFile1(path, opt);
   const data = handle(res);
+  // 如果不返回值则不修改
+  if (data == null) return;
   writeFile1(path, data, opt);
 }
 
-export {
-  readFile1 as readFile,
-  writeFile1  as writeFile,
-  changeFile1  as changeFile,
-}
+export { readFile1 as readFile, writeFile1 as writeFile, changeFile1 as changeFile };
 
 export const cwd = (p: string) => path.resolve(process.cwd(), p);
 export const relative = (p: string) => path.resolve(__dirname, p);
 
-/** 生成 hash */
-export const createHash = (len: number) => {
-  const TimeStamp = String(Date.now());
-  const hash = SHA256(TimeStamp).toString().substring(0, len); // 输出前 16 个字符作为 hash 值
-  return hash;
-};
-
-export const onlyHasPrefix = (opt: ICssSandBoxOption) => !opt.scope && opt.prefix;
+export const onlyHasPrefix = (opt: ICssSandBoxOption) => Boolean(!opt.scope && opt.prefix);
