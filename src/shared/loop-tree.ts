@@ -6,7 +6,7 @@ export type ILoopTreeProps<T, K> = {
   leave?: (node: T, i: number, list: T[], stack: number[]) => boolean | void;
 };
 
-function getChildren(item: any = {}, keys: string | string[]) {
+export function getChildren(item: any = {}, keys: string | string[]) {
   if (typeof keys === 'string') {
     return item[keys];
   }

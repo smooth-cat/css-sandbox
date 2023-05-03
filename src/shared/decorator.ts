@@ -1,9 +1,9 @@
 import { createHash } from './utils';
 
 // 收集重写 对象 -> 方法名 -> 字段索引 -> fn
-const OverrideCollection = new Map<any, Map<any, Function[][]>>();
+export const OverrideCollection = new Map<any, Map<any, Function[][]>>();
 
-const getByDefault = <T>(target: any, key: any, def: T) => {
+export const getByDefault = <T>(target: any, key: any, def: T) => {
   const res = target.get(key);
   if (res) {
     return res as T;
@@ -39,6 +39,8 @@ export const Ovr = (decorateUndefined = true) =>
       // 清除 map 中转
       return rawFn.call(this, ...args);
     };
+
+    return descriptor;
   }) as MethodDecorator;
 
 /*----------------- prefix 函数的 opt 修正 -----------------*/
@@ -107,7 +109,7 @@ export const SandboxOpt = createRewriteParamFn(_handleSandboxOpt);
 /*----------------- cssSandbox 函数的 opt 修正 -----------------*/
 
 /*----------------- 单独处理的js/css 函数的 opt 修正, 如 babelPlugin、postCssPlugin -----------------*/
-const _handleDropHashOpt = (opt: ICssSandBoxOption = {}) => {
+export const _handleDropHashOpt = (opt: ICssSandBoxOption = {}) => {
   if (!opt.scope) return opt;
 
   const scope = opt.scope.slice(0, opt.scope.lastIndexOf('_'));

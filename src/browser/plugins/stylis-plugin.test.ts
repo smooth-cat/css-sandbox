@@ -16,6 +16,11 @@ describe('createPrefixPlugin 方法', () => {
     });
     expect(res).toMatchSnapshot();
   });
+
+  it('非css类型上下文', () => {
+    const res = StylisPlugin.createPrefixPlugin({ prefix: '.my-app ' })(StylisCtxLevel.newline, css);
+    expect(res).toBe(css);
+  });
 });
 
 describe('createSandboxPlugin 方法', () => {

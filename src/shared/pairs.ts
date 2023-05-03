@@ -41,7 +41,7 @@ export type ILevelMarkCombo = {
   replacedContent?: string;
 };
 
-class IdxArr<T> extends Array<T> {
+export class IdxArr<T> extends Array<T> {
   idx = 0;
   constructor(...args: any[]) {
     super(...args);
@@ -54,7 +54,7 @@ class IdxArr<T> extends Array<T> {
 
 export type ILoopCb = (combo: ILevelMarkCombo, level: number, i: number) => void;
 
-class LevelMarks<R = string> extends Array<IdxArr<ILevelMarkCombo>> {
+export class LevelMarks<R = string> extends Array<IdxArr<ILevelMarkCombo>> {
   constructor(...args: any[]) {
     super(...args);
   }

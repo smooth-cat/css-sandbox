@@ -1,4 +1,6 @@
 const div = document.createElement('div');
+const mockFn = () => {}
+mockFn();
 const a = {
   ____sandboxHash_____: () => 1,
 }

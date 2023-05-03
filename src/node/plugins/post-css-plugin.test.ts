@@ -23,6 +23,15 @@ describe('createPrefixPlugin', () => {
     });
     expect(res).toMatchSnapshot();
   });
+  
+  it('2.打印 debug 日志', async () => {
+    const spier = jest.spyOn(console, 'log');
+    await callPlugin(css, PostCssPlugin.createPrefixPlugin, {
+      prefix: '.my-app ',
+      debug: true
+    });
+    expect(spier).toBeCalled();
+  });
 });
 
 describe('createSandboxPlugin', () => {

@@ -2,28 +2,7 @@
  * @Description: 字符串化
  */
 
-const isObjectLike = (v: any) => Object.prototype.toString.call(v).match(/\[object (Array|Object)\]/);
-const last = (arr: any[]) => arr[arr.length - 1];
-
-const a = {
-  value: 'aaa'
-};
-
-const c = {
-  value: {
-    x: 0,
-    y: 1
-  },
-  a
-};
-
-// @ts-ignore
-a.c = c;
-
-const e = {
-  a,
-  c
-};
+import { isObjectLike, last } from "./utils";
 
 export function stringify(obj: object, space: string | number | undefined = 2) {
   let objPaths: any[] = [];
@@ -70,5 +49,3 @@ export function stringify(obj: object, space: string | number | undefined = 2) {
 
   return result;
 }
-
-// console.log(stringify(e));

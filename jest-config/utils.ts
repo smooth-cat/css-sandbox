@@ -45,3 +45,4 @@ export const initFile = (jsFileName: string) => {
 };
 
 export const MockHash = '12345678';
+export const DefaultScope = 'css-sandbox';

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rewrittenFn 生成重写的 documentDCreateElement 方法 1`] = `
+"
+function documentDCreateElement(...args){var el=document.createElement(...args);el.setAttribute('css-sandbox');return el;}"
+`;
+
+exports[`sandboxHash 生成重写的 sandboxHash 方法 1`] = `
+"
+function ____sandboxHash_____(){return 'css-sandbox';}"
+`;
+
+exports[`simpleRewriteCreateElement 通过 scope 重写 js 文件 1`] = `
+"const div = documentDCreateElement('div');
+const mockFn = () => {}
+mockFn();
+const a = {
+  ____sandboxHash_____: () => 1,
+}
+console.log(JSON.stringify(a)); 
+const hash =   ____sandboxHash_____();
+console.log(hash);
+function documentDCreateElement(...args){var el=document.createElement(...args);el.setAttribute('[css-sandbox]');return el;}
+function ____sandboxHash_____(){return '[css-sandbox]';}"
+`;

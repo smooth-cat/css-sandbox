@@ -24,7 +24,7 @@ export function createHash(len: number) {
   return str;
 }
 
-export const isObjectLike = (v: any) => Object.prototype.toString.call(v).match(/\[object (Array|Object)\]/);
+export const isObjectLike = (v: any) => !!Object.prototype.toString.call(v).match(/\[object (Array|Object)\]/);
 export const last = (arr: any[]) => arr[arr.length - 1];
 
 // console.log(createHash(20));

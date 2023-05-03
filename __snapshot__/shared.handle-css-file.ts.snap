@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`replaceSelector 处理css字符串，给每个 selector 加前缀 1`] = `
+"@media screen and (min-width: 480px) {
+  .my-app .ggg, .my-app #bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+.my-app #main {
+  border: 1px solid black;
+}
+
+.my-app ul li  {
+  padding: 5px;
+}
+
+.my-app :not(.abc) {
+  
+}"
+`;
+
+exports[`replaceSelector 处理css字符串，给每个 selector 加前缀，仅对 id-class 选择器生效 1`] = `
+"@media screen and (min-width: 480px) {
+  .my-app .ggg, .my-app #bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+.my-app #main {
+  border: 1px solid black;
+}
+
+ul li  {
+  padding: 5px;
+}
+
+.my-app :not(.abc) {
+  
+}"
+`;
+
+exports[`replaceSelector 处理css字符串，给每个 selector 加前缀，指定 transform 处理 1`] = `
+"@media screen and (min-width: 480px) {
+  .my-app .ggg, .my-app #bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+.my-app #main {
+  border: 1px solid black;
+}
+
+.my-app ul li  {
+  padding: 5px;
+}
+
+.my-app :not(.abc) {
+  
+}"
+`;
+
+exports[`replaceSelector 处理css字符串，给每个 selector 加前缀，指定 作用于 body 选择器 1`] = `
+"@media screen and (min-width: 480px) {
+  [css-sandbox].ggg, [css-sandbox]#bbb {
+
+  }
+  
+  [css-sandbox]body {
+      background-color: lightgreen;
+  }
+}
+
+[css-sandbox]#main {
+  border: 1px solid black;
+}
+
+[css-sandbox]ul li  {
+  padding: 5px;
+}
+
+[css-sandbox]:not(.abc) {
+  
+}"
+`;
+
+exports[`replaceSelector 处理css字符串，给每个 selector 加前缀，排除 #main 1`] = `
+"@media screen and (min-width: 480px) {
+  .my-app .ggg, .my-app #bbb {
+
+  }
+  
+  body {
+      background-color: lightgreen;
+  }
+}
+
+#main {
+  border: 1px solid black;
+}
+
+.my-app ul li  {
+  padding: 5px;
+}
+
+.my-app :not(.abc) {
+  
+}"
+`;

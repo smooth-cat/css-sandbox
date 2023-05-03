@@ -131,6 +131,6 @@ export const ignoreKeyFrame = (selector = '') => {
 };
 
 /** 替换掉选择器前后的空白 */
-const trimEpt = (str: string) => {
+export const trimEpt = (str: string) => {
   return (str.match(/(\s*)(\S[\s\S]*\S)(\s*)/) || []).slice(1);
 };
