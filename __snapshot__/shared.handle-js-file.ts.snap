@@ -12,6 +12,7 @@ function ____sandboxHash_____(){return 'css-sandbox';}"
 
 exports[`simpleRewriteCreateElement 通过 scope 重写 js 文件 1`] = `
 "const div = documentDCreateElement('div');
+const span = documentDCreateElement('span');
 const mockFn = () => {}
 mockFn();
 const a = {

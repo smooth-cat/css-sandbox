@@ -24,6 +24,7 @@ exports[`prefix 方法 给css文件增加前缀 .my-app 1`] = `
   
 }
 const div = document.createElement('div');
+const span = window.document.createElement('span');
 const mockFn = () => {}
 mockFn();
 const a = {
@@ -69,6 +70,7 @@ exports[`prefix 方法 给css文件增加前缀忽略 b.css .my-app 1`] = `
   
 }
 const div = document.createElement('div');
+const span = window.document.createElement('span');
 const mockFn = () => {}
 mockFn();
 const a = {
@@ -114,6 +116,7 @@ exports[`sandbox 方法 给css文件增加属性沙箱 [my-sandbox] 1`] = `
   
 }
 const div = documentDCreateElement('div');
+const span = documentDCreateElement('span');
 const mockFn = () => {}
 mockFn();
 const a = {

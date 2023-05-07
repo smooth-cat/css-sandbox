@@ -1,4 +1,7 @@
 const div = document.createElement('div');
+const span = window.document.createElement('span');
+const mockFn = () => {}
+mockFn();
 const a = {
   ____sandboxHash_____: () => 1,
 }

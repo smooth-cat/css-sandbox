@@ -2,6 +2,7 @@
 
 exports[`createSandboxPlugin 使用自定义 css 沙箱名 my-sandbox 1`] = `
 "const div = documentDCreateElement('div');
+const span = documentDCreateElement('span');
 const mockFn = () => {};
 mockFn();
 const a = {
@@ -22,6 +23,7 @@ function ____sandboxHash_____() {
 
 exports[`createSandboxPlugin 使用默认 css 沙箱名替换 1`] = `
 "const div = documentDCreateElement('div');
+const span = documentDCreateElement('span');
 const mockFn = () => {};
 mockFn();
 const a = {

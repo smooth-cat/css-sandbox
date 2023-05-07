@@ -43,6 +43,19 @@ export class BabelPlugin {
         return false;
       };
 
+      // 考虑 window.document.createElement 情况
+      const isMultiMemberExp = (callee: INode, keys: string[]) => {
+        if (!nodeIs(callee, 'MemberExpression')) return;
+        return keys.every((curr, i) => {
+          const next = keys[i + 1];
+          if (next!) return true;
+          // MemberExp 通过 object 套娃
+          const res = isMemberExp(callee, [curr, next]);
+          callee = callee['object'];
+          return res;
+        });
+      };
+
       let matchedCreateElement = false;
       let matchedSandboxHash = false;
       let rewrittenFnNodePath: NodePath;
@@ -55,7 +68,11 @@ export class BabelPlugin {
         /** 对手动添加的重写语句不需要再做替换了 */
         const inAddedFn = rewrittenFnNodePath && rewrittenFnNodePath.isAncestor(path);
         // 是 document.createElement 的
-        if (!inAddedFn && isMemberExp(callee, ['document', 'createElement'])) {
+        if (
+          !inAddedFn &&
+          (isMemberExp(callee, ['document', 'createElement']) ||
+            isMultiMemberExp(callee, ['*', 'document', 'createElement']))
+        ) {
           matchedCreateElement = true;
           path.node.callee = t.identifier(ReplaceFnStatement);
         }

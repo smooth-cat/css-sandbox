@@ -1,11 +1,11 @@
 import { ICssSandBoxOption } from './decorator';
 
-export const CreateElementStatement = 'document.createElement';
+export const CreateElementStatement = '[\\w\\.]*document\\.createElement';
 
 /** ____sandboxHash_____ 标识符 */
 export const SandboxHashId = '____sandboxHash_____';
 
-export const SandboxHashPropStatement = `\\w+.${SandboxHashId}\\(\\)`;
+export const SandboxHashPropStatement = `\\w+\\.${SandboxHashId}\\(\\)`;
 export const ReplaceFnStatement = 'documentDCreateElement';
 export const rewrittenFn = (attr: string) =>
   `\nfunction ${ReplaceFnStatement}(...args){var el=document.createElement(...args);el.setAttribute('${attr}');return el;}`;
